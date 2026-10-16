@@ -1,0 +1,16 @@
+name: Feature request
+description: An idea for something Disklens could find, explain or clean.
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What would you like Disklens to do?
+      description: Describe the problem first (what is using your space, what is hard today), then your idea.
+    validations:
+      required: true
+  - type: textarea
+    id: where
+    attributes:
+      label: Where does it live on disk?
+      description: For new System Data or Clean up items, the folders involved and how the app recreates them help a lot.

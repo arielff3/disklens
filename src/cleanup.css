@@ -1,0 +1,31 @@
+.cleanup { flex: 1; display: flex; flex-direction: column; gap: 12px; min-height: 0; }
+.clean-list { flex: 1; min-height: 0; padding: 6px 6px 10px; overflow-y: auto; }
+.clean-group { margin: 12px 10px 4px; font-size: 12px; font-weight: 600; color: var(--muted); }
+.clean-row { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 12px; padding: 9px 10px; border-radius: 9px; cursor: pointer; }
+.clean-row:hover { background: var(--hover); }
+.clean-row.disabled { cursor: default; opacity: 0.6; }
+.clean-row input { width: 16px; height: 16px; margin: 0; accent-color: var(--accent); cursor: inherit; }
+.clean-text { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.clean-bar { display: flex; align-items: center; gap: 12px; padding: 10px 14px; background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); }
+.clean-bar .btn { margin: 0; }
+.clean-progress { width: 100%; height: 6px; margin: 14px 0 10px; }
+
+/* Confirmation dialog */
+.modal-backdrop { position: fixed; inset: 0; z-index: 20; display: grid; place-items: center; padding: 24px; background: rgb(0 0 0 / 0.45); }
+.modal { display: flex; flex-direction: column; gap: 8px; width: min(560px, 100%); max-height: 80vh; padding: 22px; box-shadow: var(--shadow); }
+.modal h3 { margin: 0; font-size: 17px; }
+.modal p { margin: 0; }
+.confirm-list { display: flex; flex-direction: column; gap: 8px; min-height: 0; margin-top: 8px; padding: 10px; overflow-y: auto; background: var(--bg); border: 1px solid var(--border); border-radius: 10px; }
+.confirm-head { display: flex; justify-content: space-between; gap: 12px; font-weight: 600; }
+.confirm-path { overflow: hidden; font-family: "Cascadia Mono", Consolas, monospace; font-size: 11px; color: var(--muted); text-overflow: ellipsis; white-space: nowrap; }
+.modal-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 12px; }
+.modal-actions .btn { margin: 0; }
+.center-actions { justify-content: center; }
+.result-notes { display: flex; flex-direction: column; gap: 8px; margin-top: 4px; text-align: left; }
+
+/* Projects */
+.project { padding-bottom: 4px; border-bottom: 1px solid var(--border); }
+.project:last-child { border-bottom: none; }
+.folder-row { padding-left: 38px; }
+.folder-row .badge { margin-right: 6px; }
+.btn.primary.danger { color: var(--text); background: var(--cat-apps); border-color: var(--cat-apps); }

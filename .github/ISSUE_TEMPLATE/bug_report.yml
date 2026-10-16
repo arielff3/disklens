@@ -1,0 +1,40 @@
+name: Bug report
+description: Something doesn't work or shows wrong numbers.
+labels: [bug]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: What did you do, what did you expect, and what happened instead? Screenshots help.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Open the Projects tab
+        2. ...
+  - type: input
+    id: version
+    attributes:
+      label: Disklens version
+      placeholder: 0.1.0
+    validations:
+      required: true
+  - type: input
+    id: windows
+    attributes:
+      label: Windows version
+      placeholder: Windows 11 24H2
+    validations:
+      required: true
+  - type: dropdown
+    id: admin
+    attributes:
+      label: Running as administrator?
+      options:
+        - "No"
+        - "Yes"
+        - Not sure

@@ -1,0 +1,62 @@
+[package]
+name = "disklens"
+version = "0.1.0"
+description = "See where your Windows disk space went, and clean it up safely."
+authors = ["Ariel"]
+license = "MIT"
+repository = "https://github.com/arielff3/disklens"
+homepage = "https://github.com/arielff3/disklens"
+edition = "2021"
+
+[lib]
+name = "disklens_lib"
+crate-type = ["rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = [] }
+tauri-plugin-opener = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+rayon = "1"
+dirs = "6"
+winreg = "0.56"
+# 3.0.0 is an intentionally broken release; stay on 2.
+bincode = { version = "=2.0.1", features = ["serde"] }
+zstd = "0.14"
+# 8.x on Windows drops buffer overflows silently (no Flag::Rescan, and an
+# ERROR_NOTIFY_ENUM_DIR completion unwatches). 9.0 reports them; pinned until it is final.
+notify = "=9.0.0-rc.5"
+windows-sys = { version = "0.61", features = [
+    "Win32_Foundation",
+    "Win32_Security",
+    "Win32_Storage_FileSystem",
+    "Win32_System_Diagnostics_ToolHelp",
+    "Win32_System_Threading",
+    "Win32_UI_Shell",
+    "Win32_UI_WindowsAndMessaging",
+] }
+
+[dev-dependencies]
+tempfile = "3"
+
+# Dev builds keep only line numbers (enough for panic locations); full debug
+# info for every dependency made target\debug about 14 GB.
+[profile.dev]
+debug = "line-tables-only"
+
+[profile.dev.package."*"]
+debug = false
+
+[profile.release]
+lto = true
+codegen-units = 1
+strip = true
+
+# Kaspersky's heuristics flag some stripped build-script executables
+# (e.g. camino's) as VHO:Trojan.Win32.Sdum.gen and delete them mid-build.
+# Keeping debug info in build scripts avoids the false positive.
+[profile.release.build-override]
+debug = true

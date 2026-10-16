@@ -1,0 +1,23 @@
+.apps { flex: 1; display: flex; flex-direction: column; gap: 12px; min-height: 0; }
+.apps-filter { width: 200px; height: 30px; padding: 0 12px; font: inherit; color: inherit; background: var(--card); border: 1px solid var(--border); border-radius: 15px; outline: none; }
+.apps-filter:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.apps-filter::placeholder { color: var(--muted); }
+.apps-list { flex: 1; min-height: 0; padding: 6px; overflow-y: auto; }
+.app-row { border-radius: 10px; }
+.app-row.open { background: var(--hover); }
+.app-summary { display: grid; grid-template-columns: 32px minmax(0, 1fr) auto; align-items: center; gap: 12px; width: 100%; padding: 8px 10px; text-align: left; border-radius: 10px; }
+.app-summary:hover { background: var(--hover); }
+.app-avatar { display: grid; place-items: center; width: 32px; height: 32px; font-weight: 700; color: var(--tile-label); border-radius: 9px; }
+.app-name { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.app-name .name { overflow: hidden; font-weight: 600; text-overflow: ellipsis; white-space: nowrap; }
+.app-name .muted { display: flex; align-items: center; gap: 6px; overflow: hidden; white-space: nowrap; }
+.app-badge { padding: 0 6px; font-size: 10px; }
+.app-details { display: flex; flex-direction: column; gap: 4px; padding: 0 10px 10px 54px; }
+.app-folder { display: grid; grid-template-columns: 90px minmax(0, 1fr) auto auto; align-items: center; gap: 10px; min-height: 28px; }
+.app-folder .icon-btn { width: 24px; height: 24px; }
+.app-folder .icon-btn svg { width: 12px; height: 12px; }
+.app-actions { display: flex; justify-content: flex-end; margin-top: 6px; }
+.app-actions .btn { margin: 0; }
+.leftover-row { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 10px; cursor: pointer; }
+.leftover-row input { width: 15px; height: 15px; margin: 0; accent-color: var(--accent); }
+.center-text { text-align: center; }

@@ -1,0 +1,15 @@
+.changes { flex: 1; display: flex; flex-direction: column; gap: 12px; min-height: 0; }
+.since { display: flex; align-items: center; gap: 8px; }
+.since select { height: 30px; padding: 0 10px; font: inherit; color: inherit; background: var(--card); border: 1px solid var(--border); border-radius: 10px; }
+.changes-summary { display: flex; align-items: baseline; gap: 12px; padding: 14px 16px; }
+.changes-summary .delta { font-size: 22px; }
+.changes-list { flex: 1; min-height: 0; padding: 6px; overflow-y: auto; }
+.change-row { display: grid; grid-template-columns: minmax(0, 1fr) 170px 90px 90px; align-items: center; gap: 12px; width: 100%; padding: 8px 10px; text-align: left; border-radius: 9px; }
+.change-row:hover { background: var(--hover); }
+.change-path { overflow: hidden; font-weight: 600; text-overflow: ellipsis; white-space: nowrap; }
+.change-sizes { text-align: right; white-space: nowrap; }
+.delta { font-weight: 700; font-variant-numeric: tabular-nums; text-align: right; white-space: nowrap; }
+.delta.grew { color: var(--caution); }
+.delta.shrank { color: var(--safe); }
+.row-bar .grew { background: var(--caution); }
+.row-bar .shrank { background: var(--safe); }
