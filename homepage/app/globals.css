@@ -1,0 +1,41 @@
+@import "tailwindcss";
+
+/* Disklens's Sand theme, light. */
+@theme {
+  --color-sand: #f7f2eb;
+  --color-sand-2: #f1eae1;
+  --color-sand-3: #e9e0d4;
+  --color-card: #fcfaf8;
+  --color-line: rgb(181 170 156 / 0.35);
+  --color-ink: #2b2522;
+  --color-muted: rgb(43 37 34 / 0.62);
+  --color-ember: #f26b2a;
+  --color-ember-strong: #c0450c;
+  --color-ember-soft: rgb(242 107 42 / 0.14);
+  --color-sky: #4fa3e8;
+  --color-leaf: #417227;
+  --color-amber: #8f600a;
+  --color-tile-0: #f8b6a0;
+  --color-tile-1: #a5d0f3;
+  --color-tile-2: #b6e2de;
+  --color-tile-3: #efa9ca;
+  --color-tile-4: #ada0f8;
+  --color-tile-5: #f8d9a0;
+
+  --font-display: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-instrument), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-dm-mono), ui-monospace, monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-sand);
+  color: var(--color-ink);
+}
+
+::selection {
+  background: var(--color-ember-soft);
+}
