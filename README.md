@@ -8,6 +8,8 @@
 
 Disklens scans a drive or folder, shows what is using the space, explains what Windows and your apps keep on disk, and helps you clear what is safe to clear. Everything runs on your PC: no account, no telemetry, nothing is uploaded.
 
+![A 30-second tour of Disklens: Explore, System Data, Projects and Changes](.github/assets/disklens-launch-video.gif)
+
 ![Explore: a drive's folders as a list and a treemap](docs/screenshots/explore.png)
 
 Inspired by [Diskzy](https://diskzy.app) for macOS. Disklens is an independent project, not affiliated with Diskzy.
