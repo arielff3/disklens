@@ -1,13 +1,10 @@
-import Image from "next/image";
 import AnimatedContent from "@/components/reactbits/AnimatedContent";
-import DotGrid from "@/components/reactbits/DotGrid";
+import BlurText from "@/components/reactbits/BlurText";
 import Magnet from "@/components/reactbits/Magnet";
-import RotatingText from "@/components/reactbits/RotatingText";
 import ShinyText from "@/components/reactbits/ShinyText";
 import { DOWNLOAD, REPO, VERSION } from "@/lib/site";
+import DiskMap from "./DiskMap";
 import { GitHubIcon, Logo, WindowsIcon } from "./icons";
-
-const CULPRITS = ["node_modules", "WinSxS", "Docker disks", "hiberfil.sys", "browser caches", "old downloads"];
 
 function Nav() {
   return (
@@ -35,9 +32,9 @@ function Nav() {
   );
 }
 
-export function DownloadButtons({ center = true }: { center?: boolean }) {
+function DownloadButtons() {
   return (
-    <div className={`flex flex-wrap items-center gap-3 ${center ? "justify-center" : ""}`}>
+    <div className="flex flex-wrap items-center gap-3">
       <Magnet padding={60} magnetStrength={4} maxOffset={14}>
         <a
           href={DOWNLOAD}
@@ -61,49 +58,43 @@ export function DownloadButtons({ center = true }: { center?: boolean }) {
 export default function Hero() {
   return (
     <section className="relative overflow-hidden">
-      <div className="absolute inset-0 [mask-image:radial-gradient(ellipse_70%_60%_at_50%_35%,black,transparent)]">
-        <DotGrid dotSize={4} gap={24} baseColor="#ddd0bf" activeColor="#f26b2a" proximity={130} glow={0.2} />
-      </div>
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -top-40 right-[-10%] h-[720px] w-[720px] rounded-full bg-[radial-gradient(closest-side,rgb(242_107_42/0.16),transparent)]"
+      />
       <Nav />
-      <div className="pointer-events-none relative mx-auto max-w-5xl px-6 pt-14 pb-16 text-center sm:pt-20">
-        <div className="pointer-events-auto inline-flex items-center gap-2 rounded-full border border-line bg-card/80 px-4 py-1.5 font-mono text-xs tracking-wide backdrop-blur">
-          <span className="h-1.5 w-1.5 rounded-full bg-ember" />
-          <ShinyText text={`Free and open source · v${VERSION}`} color="#5f5750" shineColor="#f26b2a" speed={3} />
+      <div className="relative mx-auto grid max-w-6xl items-center gap-12 px-6 pt-8 pb-24 sm:pt-14 lg:grid-cols-[0.92fr_1.08fr] lg:gap-14 lg:pb-32">
+        <div>
+          <div className="inline-flex items-center gap-2 rounded-full border border-line bg-card/80 px-4 py-1.5 font-mono text-xs tracking-wide">
+            <span className="h-1.5 w-1.5 rounded-full bg-ember" />
+            <ShinyText text={`Free and open source · v${VERSION}`} color="#5f5750" shineColor="#f26b2a" speed={3} />
+          </div>
+          <div role="heading" aria-level={1} className="mt-6">
+            <BlurText
+              text="Find what's eating your disk."
+              animateBy="words"
+              trigger="load"
+              delay={90}
+              className="font-display text-[clamp(2.6rem,6.2vw,4.9rem)] leading-[0.98] font-extrabold tracking-[-0.04em]"
+            />
+          </div>
+          <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted sm:text-xl">
+            Disklens maps every folder on your Windows drive, tells you what each one is, and clears only what is
+            safe to clear.
+          </p>
+          <div className="mt-8">
+            <DownloadButtons />
+          </div>
+          <p className="mt-4 font-mono text-xs text-muted">Windows 10 and 11 · 2.4 MB · No account, no telemetry</p>
         </div>
-        <h1 className="mt-7 font-display text-[clamp(2.25rem,7.5vw,5.6rem)] leading-[1.02] font-extrabold tracking-[-0.035em]">
-          Your disk is full of
-          <br />
-          <RotatingText
-            texts={CULPRITS}
-            highlight
-            highlightColor="#f26b2a"
-            rotationInterval={2200}
-            staggerDuration={0.02}
-            mainClassName="mt-2 inline-flex overflow-hidden rounded-[0.3em] px-[0.3em] pb-[0.06em] align-bottom"
-          />
-        </h1>
-        <p className="mx-auto mt-7 max-w-2xl text-lg leading-relaxed text-muted sm:text-xl">
-          Disklens shows where your Windows disk space went, explains what each folder is, and clears what is safe
-          to clear.
-        </p>
-        <div className="pointer-events-auto mt-9">
-          <DownloadButtons />
-        </div>
-        <p className="mt-4 font-mono text-xs text-muted">Windows 10 and 11 · 2.4 MB · No account, no telemetry</p>
+        <AnimatedContent distance={60} scale={0.97} duration={1} delay={0.2} trigger="mount">
+          <p className="mb-3 flex items-center gap-2 font-mono text-xs text-muted">
+            <span className="h-[3px] w-6 rounded-full bg-ember" />
+            Try it: click a tile to clear it
+          </p>
+          <DiskMap />
+        </AnimatedContent>
       </div>
-      <AnimatedContent distance={80} scale={0.96} duration={1.1} delay={0.15} className="relative px-4 pb-24 sm:px-6">
-        <div className="mx-auto max-w-5xl overflow-hidden rounded-2xl border border-line bg-card shadow-[0_40px_100px_-40px_rgba(43,37,34,0.45)]">
-          <Image
-            src="/demo.gif"
-            alt="A tour of Disklens: the treemap, System Data, Projects and Changes"
-            width={1920}
-            height={1080}
-            unoptimized
-            priority
-            className="block h-auto w-full"
-          />
-        </div>
-      </AnimatedContent>
     </section>
   );
 }

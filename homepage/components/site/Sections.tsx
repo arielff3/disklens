@@ -236,9 +236,6 @@ export function Footer() {
           </a>
         </div>
       </div>
-      <p className="mx-auto max-w-6xl px-6 pb-10 text-xs text-muted/80">
-        Inspired by Diskzy for macOS. Disklens is an independent project, not affiliated with Diskzy.
-      </p>
     </footer>
   );
 }
