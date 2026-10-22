@@ -25,6 +25,7 @@ Inspired by [Diskzy](https://diskzy.app) for macOS. Disklens is an independent p
 - **Projects.** `node_modules`, Rust `target`, Gradle `build`, .NET `bin`/`obj`, Python `.venv`, `.next` across your projects, with how long each project has been untouched.
 - **Clean up.** Safe-to-clear caches and temp folders in one checklist; apps that are open are left alone.
 - **Apps.** Installed programs and Store apps by footprint, data folders included. Uninstall with the app's own uninstaller, then remove what it left behind.
+- **Activity.** A lightweight task manager: CPU, memory and GPU for the whole PC with a one-minute graph, and per app, with each app's processes grouped together. End a process or a whole app; processes Windows needs to keep running are refused.
 - **Themes.** Sand, Ink and Lagoon, each in light and dark.
 
 | System Data | Changes |
