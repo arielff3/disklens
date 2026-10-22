@@ -1,3 +1,4 @@
+pub mod activity;
 pub mod apps;
 pub mod categorize;
 pub mod cleanup;
@@ -37,6 +38,7 @@ pub fn run() {
         .manage(tools::Tools::new(Arc::new(env_lookup)))
         .manage(vdisk::VDisks::new(Arc::new(env_lookup)))
         .manage(projects::Projects::new(Arc::new(env_lookup)))
+        .manage(activity::Activity::new())
         .setup(|app| {
             let handle = app.handle().clone();
             let emit = Arc::new(move |event: Event| {
@@ -88,6 +90,8 @@ pub fn run() {
             projects::projects_list,
             projects::projects_delete,
             projects::projects_status,
+            activity::activity_snapshot,
+            activity::activity_end,
         ])
         .build(tauri::generate_context!())
         .expect("error while building Disklens")
