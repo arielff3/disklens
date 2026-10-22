@@ -137,3 +137,12 @@ export function CheckIcon() {
     </svg>
   );
 }
+
+/** A pulse line: Activity in the sidebar. */
+export function ActivityIcon() {
+  return (
+    <svg viewBox="0 0 16 16" fill="none" stroke="white" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M2 8.5h2.5L6 4.5l2.5 7 2-5 1 2H14" />
+    </svg>
+  );
+}

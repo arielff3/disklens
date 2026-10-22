@@ -2,6 +2,7 @@ import { invoke } from "@tauri-apps/api/core";
 import { listen } from "@tauri-apps/api/event";
 import { mockApi } from "./mockApi";
 import type {
+  ActivitySnapshot,
   AppsList,
   BiggestFilter,
   CleanItem,
@@ -9,6 +10,7 @@ import type {
   CompactStatus,
   DeleteStatus,
   Drive,
+  EndResult,
   IndexUpdated,
   NodeView,
   Opened,
@@ -88,6 +90,10 @@ export interface Api {
   /** Deletes build folders permanently, in the background. */
   projectsDelete(paths: string[]): Promise<void>;
   projectsStatus(): Promise<DeleteStatus>;
+  /** The latest Activity sample (null until the first one); polling keeps the sampler running. */
+  activitySnapshot(): Promise<ActivitySnapshot | null>;
+  /** Ends processes; critical ones are refused. */
+  activityEnd(pids: number[]): Promise<EndResult[]>;
   onScanProgress(cb: (p: ScanProgress) => void): Promise<Unlisten>;
   onScanDone(cb: (d: ScanDone) => void): Promise<Unlisten>;
   onIndexUpdated(cb: (u: IndexUpdated) => void): Promise<Unlisten>;
@@ -131,6 +137,8 @@ const tauriApi: Api = {
   projectsList: () => invoke("projects_list"),
   projectsDelete: (paths) => invoke("projects_delete", { paths }),
   projectsStatus: () => invoke("projects_status"),
+  activitySnapshot: () => invoke("activity_snapshot"),
+  activityEnd: (pids) => invoke("activity_end", { pids }),
   onScanProgress: (cb) => listen<ScanProgress>("scan-progress", (e) => cb(e.payload)),
   onScanDone: (cb) => listen<ScanDone>("scan-done", (e) => cb(e.payload)),
   onIndexUpdated: (cb) => listen<IndexUpdated>("index-updated", (e) => cb(e.payload)),

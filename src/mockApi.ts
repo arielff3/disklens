@@ -1,4 +1,5 @@
 import type { Api } from "./api";
+import { mockActivityEnd, mockActivitySnapshot } from "./mockActivity";
 import { isWithin, joinPath, samePath } from "./paths";
 import type {
   AppView,
@@ -403,6 +404,8 @@ export const mockApi: Api = {
     );
   },
   projectsStatus: async () => deleteStatus,
+  activitySnapshot: async () => mockActivitySnapshot(),
+  activityEnd: async (pids) => mockActivityEnd(pids),
   vdiskCompact: async (paths) => {
     compactStarted = Date.now();
     compactPaths = paths;

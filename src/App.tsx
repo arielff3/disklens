@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState, type MouseEvent } from "react";
 import { api } from "./api";
+import { ActivityView } from "./components/ActivityView";
 import { AppsView } from "./components/AppsView";
 import { BiggestView } from "./components/BiggestView";
 import { ChangesView } from "./components/ChangesView";
@@ -44,6 +45,10 @@ export default function App() {
   const [history, setHistory] = useState<string[]>([]);
   // `?tab=` only matters in the browser preview (README screenshots); the app has no query string.
   const [tab, setTab] = useState<TabKey>(() => (new URLSearchParams(window.location.search).get("tab") as TabKey | null) ?? "explore");
+  /** Activity replaces the drive views; it has nothing to do with the selected drive. */
+  const [view, setView] = useState<"drives" | "activity">(() =>
+    new URLSearchParams(window.location.search).get("view") === "activity" ? "activity" : "drives",
+  );
   const [menu, setMenu] = useState<MenuTarget | null>(null);
   const [query, setQuery] = useState("");
   const [search, setSearch] = useState<SearchState>({ result: null, error: null });
@@ -372,31 +377,45 @@ export default function App() {
       <Sidebar
         drives={drives}
         places={places}
-        activePath={node?.path ?? scanRoot}
-        onDrive={(d) => openRoot(d.root)}
-        onPlace={openPlace}
+        activePath={view === "activity" ? null : (node?.path ?? scanRoot)}
+        onDrive={(d) => {
+          setView("drives");
+          openRoot(d.root);
+        }}
+        onPlace={(path) => {
+          setView("drives");
+          openPlace(path);
+        }}
+        activityActive={view === "activity"}
+        onActivity={() => setView("activity")}
         elevated={elevated}
         onRunAsAdmin={runAsAdmin}
       />
-      <main className="main">
-        <TopBar
-          crumbs={node?.crumbs ?? []}
-          canGoBack={history.length > 0}
-          refreshing={refreshing}
-          search={<SearchBox value={query} disabled={!ready} inputRef={searchInputRef} onChange={setQuery} />}
-          onBack={goBack}
-          onCrumb={openDir}
-          onRescan={scanRoot && scan.status !== "scanning" ? () => startScan(scanRoot, node?.path ?? null) : undefined}
-        />
-        <Tabs
-          active={query.trim() && ready ? null : tab}
-          onChange={(t) => {
-            setQuery("");
-            setTab(t);
-          }}
-        />
-        {content}
-      </main>
+      {view === "activity" ? (
+        <main className="main">
+          <ActivityView elevated={elevated} onRunAsAdmin={runAsAdmin} />
+        </main>
+      ) : (
+        <main className="main">
+          <TopBar
+            crumbs={node?.crumbs ?? []}
+            canGoBack={history.length > 0}
+            refreshing={refreshing}
+            search={<SearchBox value={query} disabled={!ready} inputRef={searchInputRef} onChange={setQuery} />}
+            onBack={goBack}
+            onCrumb={openDir}
+            onRescan={scanRoot && scan.status !== "scanning" ? () => startScan(scanRoot, node?.path ?? null) : undefined}
+          />
+          <Tabs
+            active={query.trim() && ready ? null : tab}
+            onChange={(t) => {
+              setQuery("");
+              setTab(t);
+            }}
+          />
+          {content}
+        </main>
+      )}
       {menu && <ContextMenu target={menu} onClose={() => setMenu(null)} onOpenDir={openDir} />}
     </div>
   );

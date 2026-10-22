@@ -299,3 +299,59 @@ export interface DeleteStatus {
   failed: string[];
   refused: string[];
 }
+
+/** One process in Activity. CPU is percent of the whole machine; memory is the private working set. */
+export interface ActivityProcess {
+  pid: number;
+  parent: number | null;
+  name: string;
+  exe: string | null;
+  cpu: number;
+  ram: number;
+  /** null when the GPU counters aren't available. */
+  gpu: number | null;
+  gpuMem: number | null;
+}
+
+/** Processes grouped by executable. `name` is empty for the Windows processes group. */
+export interface ActivityApp {
+  key: string;
+  name: string;
+  exe: string | null;
+  processes: ActivityProcess[];
+  cpu: number;
+  ram: number;
+  gpu: number | null;
+  gpuMem: number | null;
+}
+
+export interface SystemNow {
+  cpu: number;
+  cores: number;
+  ramUsed: number;
+  ramTotal: number;
+  gpu: number | null;
+  gpuMemUsed: number | null;
+  gpuMemTotal: number | null;
+}
+
+export interface SystemPoint {
+  cpu: number;
+  ramUsed: number;
+  gpu: number | null;
+}
+
+export interface ActivitySnapshot {
+  takenAt: number;
+  system: SystemNow;
+  /** The last minute, oldest first, one point a second. */
+  history: SystemPoint[];
+  apps: ActivityApp[];
+}
+
+export type EndOutcome = "ended" | "gone" | "denied" | "refused" | "failed";
+
+export interface EndResult {
+  pid: number;
+  outcome: EndOutcome;
+}

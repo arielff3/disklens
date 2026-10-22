@@ -1,6 +1,6 @@
 import { driveTitle, usedPercent } from "../drive";
 import { formatBytes } from "../format";
-import { DriveIcon, Logo, PlaceIcon } from "../icons";
+import { ActivityIcon, DriveIcon, Logo, PlaceIcon } from "../icons";
 import { samePath } from "../paths";
 import { APP_NAME, S } from "../strings";
 import { DRIVE_COLOR } from "../theme";
@@ -13,11 +13,13 @@ interface Props {
   activePath: string | null;
   onDrive: (drive: Drive) => void;
   onPlace: (path: string) => void;
+  activityActive: boolean;
+  onActivity: () => void;
   elevated: boolean;
   onRunAsAdmin: () => void;
 }
 
-export function Sidebar({ drives, places, activePath, onDrive, onPlace, elevated, onRunAsAdmin }: Props) {
+export function Sidebar({ drives, places, activePath, onDrive, onPlace, activityActive, onActivity, elevated, onRunAsAdmin }: Props) {
   const active = (path: string) => (activePath !== null && samePath(path, activePath) ? " active" : "");
   return (
     <aside className="sidebar">
@@ -49,6 +51,13 @@ export function Sidebar({ drives, places, activePath, onDrive, onPlace, elevated
           {S.placeNames[p.key]}
         </button>
       ))}
+      <div className="section-title">{S.system}</div>
+      <button className={`side-item${activityActive ? " active" : ""}`} onClick={onActivity}>
+        <span className="side-icon" style={{ background: "var(--accent)" }}>
+          <ActivityIcon />
+        </span>
+        {S.activity}
+      </button>
       <div className="sidebar-foot">
         {elevated ? (
           <div className="admin-pill">
