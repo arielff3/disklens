@@ -23,7 +23,8 @@ pub fn describe(exe: &Path) -> Option<String> {
     let lang = u16::from_le_bytes([translation[0], translation[1]]);
     let code_page = u16::from_le_bytes([translation[2], translation[3]]);
     let raw = query(&data, &format!(r"\StringFileInfo\{lang:04x}{code_page:04x}\FileDescription"))?;
-    let units: Vec<u16> = raw.chunks_exact(2).map(|c| u16::from_le_bytes([c[0], c[1]])).take_while(|&u| u != 0).collect();
+    let (pairs, _) = raw.as_chunks::<2>();
+    let units: Vec<u16> = pairs.iter().map(|&pair| u16::from_le_bytes(pair)).take_while(|&u| u != 0).collect();
     let text = String::from_utf16_lossy(&units).trim().to_string();
     (!text.is_empty()).then_some(text)
 }
