@@ -1,6 +1,6 @@
 [package]
 name = "disklens"
-version = "0.1.0"
+version = "0.2.0"
 description = "See where your Windows disk space went, and clean it up safely."
 authors = ["Ariel"]
 license = "MIT"

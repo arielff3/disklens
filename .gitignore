@@ -4,3 +4,6 @@ src-tauri/target/
 src-tauri/gen/
 .claude/
 *.log
+
+# Local design notes
+docs/superpowers/
